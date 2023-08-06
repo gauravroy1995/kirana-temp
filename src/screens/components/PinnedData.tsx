@@ -10,8 +10,8 @@ export const PinnedHeader = () => {
     return null;
   }
 
-  const renderPinned = (item: ItemProps) => {
-    return <PinnedCard item={item} />;
+  const renderPinned = (item: ItemProps, index: number) => {
+    return <PinnedCard key={index} item={item} index={index} />;
   };
 
   return (

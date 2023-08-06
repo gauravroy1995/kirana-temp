@@ -3,9 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 export const LeftActions = ({item}) => {
   const {id} = item || {};
-  const onMark = () => {
-    console.log('mark', id);
-  };
+  const onMark = () => {};
 
   return (
     <View style={{flexDirection: 'row'}}>

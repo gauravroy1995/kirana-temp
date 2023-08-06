@@ -44,9 +44,18 @@ export const deleteData = ({
   const newCurrNews = currNews.filter(item => item.title !== currItem.title);
   if (lastIndex !== allNews.length - 1) {
     const newNews = allNews[lastIndex + 1] || {};
-    setlastIndex(lastIndex + 1);
     newCurrNews.splice(0, 0, newNews);
   }
 
+  setlastIndex(lastIndex + 1);
+
   setCurrNews(newCurrNews);
+};
+
+export const refreshList = props => {
+  const {lastIndex, allNews, setCurrNews, setlastIndex} = props || {};
+
+  const newNews = allNews.slice(lastIndex + 1, lastIndex + 11) || [];
+  setCurrNews(newNews);
+  setlastIndex(lastIndex + 10);
 };

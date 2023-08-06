@@ -19,18 +19,56 @@ export const fetchNews = async () => {
 };
 
 export const useNews = () => {
-  const {setCurrNews, setAllNews} = useContext(NewsContext);
+  const {setCurrNews, setAllNews, loading, setLoading} =
+    useContext(NewsContext);
 
   useEffect(() => {
+    setLoading(true);
     fetchNews()
       .then(data => {
         if (data?.articles?.length) {
           const firstNews = data?.articles?.slice(0, 10);
-          console.log('gaurav n', data, firstNews);
+
           setAllNews(data?.articles);
           setCurrNews(firstNews);
+          setLoading(false);
         }
       })
-      .catch(err => {});
+      .catch(err => {
+        setLoading(false);
+      });
   }, [setAllNews, setCurrNews]);
+};
+
+export const useRefetchAgain = () => {
+  const {
+    lastIndex,
+    allNews,
+    setAllNews,
+    setlastIndex,
+    setCurrNews,
+    loading,
+    setLoading,
+  } = useContext(NewsContext);
+  useEffect(() => {
+    if (lastIndex >= allNews.length) {
+      setLoading(true);
+      setAllNews([]);
+      setlastIndex(0);
+      setCurrNews([]);
+      fetchNews()
+        .then(data => {
+          if (data?.articles?.length) {
+            const firstNews = data?.articles?.slice(0, 10);
+
+            setAllNews(data?.articles);
+            setCurrNews(firstNews);
+            setLoading(false);
+          }
+        })
+        .catch(err => {
+          setLoading(false);
+        });
+    }
+  }, [lastIndex]);
 };

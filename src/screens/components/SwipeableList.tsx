@@ -4,7 +4,7 @@ import {Swipeable} from 'react-native-gesture-handler';
 import {ListCard} from './ListCard';
 import {RightAction} from './RightAction';
 //2488be566d6743169f3b87a5cbb31deb
-export const SwipableListItem = ({item, onDelete}) => {
+export const SwipableListItem = ({item}) => {
   const swipeableRef = React.createRef();
 
   const renderRight = () => {

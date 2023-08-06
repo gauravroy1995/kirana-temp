@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 export const NewsContext = React.createContext({});
 
 export const NewsProvider = ({children}) => {
@@ -8,6 +8,7 @@ export const NewsProvider = ({children}) => {
   const [allNews, setAllNews] = React.useState([]);
   const [pinnedNews, setPinnedNews] = React.useState([]);
   const [deletedNews, setDeletedNews] = React.useState([]);
+  const [loading, setLoading] = useState(true);
 
   return (
     <NewsContext.Provider
@@ -24,6 +25,8 @@ export const NewsProvider = ({children}) => {
         setCurrNews,
         deletedNews,
         setDeletedNews,
+        loading,
+        setLoading,
       }}>
       {children}
     </NewsContext.Provider>

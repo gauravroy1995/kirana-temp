@@ -1,20 +1,26 @@
 import React, {useContext} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {useNews} from '../utils/fetchNews';
+import {useNews, useRefetchAgain} from '../utils/fetchNews';
 import {SwipableListItem} from './components/SwipeableList';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {NewsContext, NewsProvider} from '../context/newsContext';
 import {PinnedHeader} from './components/PinnedData';
+import {ListFooter} from './components/Footer';
+import DataWrapper from './components/Wrapper';
 
 export const LandingScreen = () => {
-  const {currNews = [], setCurrNews, setAllNews} = useContext(NewsContext);
+  const {
+    currNews = [],
+    setCurrNews,
+    setAllNews,
+    loading,
+  } = useContext(NewsContext);
 
   useNews(setCurrNews, setAllNews);
-
-  console.log('wow gaurav', currNews);
+  useRefetchAgain();
 
   const renderList = ({item}) => {
-    return <SwipableListItem item={item} onDelete={() => {}} />;
+    return <SwipableListItem item={item} />;
   };
 
   const renderHeader = () => {
@@ -26,8 +32,9 @@ export const LandingScreen = () => {
       <FlatList
         data={currNews}
         renderItem={renderList}
-        keyExtractor={item => `${item?.content}`}
+        keyExtractor={(item, index) => `${item?.content}${index}}`}
         ListHeaderComponent={renderHeader()}
+        ListFooterComponent={<ListFooter />}
         style={{flex: 1}}
       />
     );
@@ -35,7 +42,9 @@ export const LandingScreen = () => {
 
   return (
     <GestureHandlerRootView style={styles.main}>
-      <View style={styles.wrap}>{renderFlat()}</View>
+      <DataWrapper loading={loading}>
+        <View style={styles.wrap}>{renderFlat()}</View>
+      </DataWrapper>
     </GestureHandlerRootView>
   );
 };

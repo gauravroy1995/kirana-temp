@@ -12,12 +12,12 @@ export type ItemProps = {
 };
 
 export const PinnedCard = props => {
-  const {item}: {item: ItemProps} = props || {};
+  const {item, index}: {item: ItemProps} = props || {};
 
   const {content = ''} = item || {};
 
   return (
-    <View key={content} style={styles.cardContainer}>
+    <View key={`${content}${index}`} style={styles.cardContainer}>
       <Text style={styles.contentText}>{content}</Text>
     </View>
   );
