@@ -51,24 +51,26 @@ export const useRefetchAgain = () => {
     setLoading,
   } = useContext(NewsContext);
   useEffect(() => {
-    if (lastIndex >= allNews.length) {
-      setLoading(true);
-      setAllNews([]);
-      setlastIndex(0);
-      setCurrNews([]);
-      fetchNews()
-        .then(data => {
-          if (data?.articles?.length) {
-            const firstNews = data?.articles?.slice(0, 10);
+    if (allNews?.length && !loading) {
+      if (lastIndex >= allNews.length) {
+        setLoading(true);
+        setAllNews([]);
+        setlastIndex(0);
+        setCurrNews([]);
+        fetchNews()
+          .then(data => {
+            if (data?.articles?.length) {
+              const firstNews = data?.articles?.slice(0, 10);
 
-            setAllNews(data?.articles);
-            setCurrNews(firstNews);
+              setAllNews(data?.articles);
+              setCurrNews(firstNews);
+              setLoading(false);
+            }
+          })
+          .catch(err => {
             setLoading(false);
-          }
-        })
-        .catch(err => {
-          setLoading(false);
-        });
+          });
+      }
     }
-  }, [lastIndex]);
+  }, [lastIndex, allNews, loading]);
 };
