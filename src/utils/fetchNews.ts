@@ -43,7 +43,7 @@ export const useNews = () => {
         setCurrNews(data.currNews);
         setlastIndex(data.lastIndex);
         setAllNews(data.allNews);
-        prefetchImages(data.allNews);
+
         setPinnedNews(data.pinnedNews);
         setDeletedNews(data.deletedNews);
         setLoading(false);
