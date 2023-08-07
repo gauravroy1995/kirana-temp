@@ -2,6 +2,7 @@ import {useCallback, useContext, useEffect, useRef} from 'react';
 import {NewsContext} from '../context/newsContext';
 import {refreshList} from './newsExtractor';
 import {loadNewsState, saveNewsState} from './storage';
+import {prefetchImages} from './imageUtil';
 
 const BASE_URL =
   'https://newsapi.org/v2/everything?' +
@@ -42,6 +43,7 @@ export const useNews = () => {
         setCurrNews(data.currNews);
         setlastIndex(data.lastIndex);
         setAllNews(data.allNews);
+        prefetchImages(data.allNews);
         setPinnedNews(data.pinnedNews);
         setDeletedNews(data.deletedNews);
         setLoading(false);
