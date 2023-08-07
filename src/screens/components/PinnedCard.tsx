@@ -11,14 +11,19 @@ export type ItemProps = {
   url: string;
 };
 
-export const PinnedCard = props => {
-  const {item, index}: {item: ItemProps} = props || {};
-
-  const {content = ''} = item || {};
+export const PinnedCard = ({item}: {item: ItemProps}) => {
+  const {author = '', publishedAt = '', content = '', urlToImage = ''} = item;
 
   return (
-    <View key={`${content}${index}`} style={styles.cardContainer}>
-      <Text style={styles.contentText}>{content}</Text>
+    <View style={styles.cardContainer}>
+      <Image source={{uri: urlToImage}} style={styles.cardImage} />
+      <View style={styles.cardContent}>
+        <Text style={styles.authorText}>{author}</Text>
+        <Text style={styles.publishedText}>{publishedAt}</Text>
+        <Text numberOfLines={3} style={styles.contentText}>
+          {content}
+        </Text>
+      </View>
     </View>
   );
 };
@@ -31,12 +36,24 @@ const styles = StyleSheet.create({
     borderColor: '#DDDDDD',
     padding: 12,
     margin: 8,
+    flexDirection: 'row',
   },
-  pinnedText: {
-    color: '#FF5733',
-    fontSize: 12,
+  cardImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  cardContent: {
+    flex: 1,
+  },
+  authorText: {
+    fontSize: 16,
     fontWeight: 'bold',
-    alignSelf: 'flex-end',
+  },
+  publishedText: {
+    fontSize: 12,
+    color: '#777',
   },
   contentText: {
     fontSize: 14,

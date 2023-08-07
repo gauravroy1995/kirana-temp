@@ -3,7 +3,7 @@ export const NewsContext = React.createContext({});
 
 export const NewsProvider = ({children}) => {
   const [currNews, setCurrNews] = React.useState([]);
-  const [startIndex, setstartIndex] = React.useState(0);
+
   const [lastIndex, setlastIndex] = React.useState(9);
   const [allNews, setAllNews] = React.useState([]);
   const [pinnedNews, setPinnedNews] = React.useState([]);
@@ -13,8 +13,6 @@ export const NewsProvider = ({children}) => {
   return (
     <NewsContext.Provider
       value={{
-        startIndex,
-        setstartIndex,
         allNews,
         setAllNews,
         pinnedNews,

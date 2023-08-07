@@ -16,19 +16,39 @@ export const PinnedHeader = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.headerText}>Pinned news</Text>
+      <View style={styles.headerContainer}>
+        <Text style={styles.headerText}>Pinned news</Text>
+      </View>
       {pinnedNews.map(renderPinned)}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  headerContainer: {
+    backgroundColor: '#FF7F7F', // Use the primary color of your app
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8,
+    marginBottom: 8,
+    alignItems: 'center', // Center the text horizontally
+  },
   headerText: {
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: 'bold',
-    margin: 8,
+    color: 'white', // Use a contrasting color for better visibility
   },
   container: {
-    backgroundColor: '#ffffe0',
+    backgroundColor: 'white',
+    borderRadius: 8,
+    elevation: 3, // Add elevation for a subtle shadow effect on Android
+    shadowColor: '#000', // Add shadow for a subtle shadow effect on iOS
+    shadowOpacity: 0.2,
+    shadowRadius: 2,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
   },
 });
