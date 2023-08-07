@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {NewsContext} from '../../../context/newsContext';
 
@@ -21,6 +21,7 @@ export const PinnedCard = ({item}: {item: ItemProps}) => {
     title,
   } = item;
   const {pinnedNews, setPinnedNews} = useContext(NewsContext);
+  const [expanded, setExpanded] = useState(false);
 
   const onDelete = () => {
     const existsArray = pinnedNews.filter(item => item.title !== title);
@@ -33,12 +34,25 @@ export const PinnedCard = ({item}: {item: ItemProps}) => {
       <View style={styles.cardContent}>
         <Text style={styles.authorText}>{author}</Text>
         <Text style={styles.publishedText}>{publishedAt}</Text>
-        <Text numberOfLines={3} style={styles.contentText}>
-          {content}
-        </Text>
-        <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
-          <Text style={styles.deleteButtonText}>Delete</Text>
-        </TouchableOpacity>
+        {expanded ? (
+          <Text style={styles.contentText}>{content}</Text>
+        ) : (
+          <Text numberOfLines={1} style={styles.contentText}>
+            {content}
+          </Text>
+        )}
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            onPress={() => setExpanded(!expanded)}
+            style={styles.expandCollapseButton}>
+            <Text style={styles.buttonText}>
+              {expanded ? 'Collapse' : 'Expand'}
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+            <Text style={styles.buttonText}>Delete</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );
@@ -75,15 +89,30 @@ const styles = StyleSheet.create({
     fontSize: 14,
     marginTop: 8,
   },
-  deleteButton: {
-    marginTop: 4, // Adjust the margin as needed
-    backgroundColor: '#FF0000',
-    paddingVertical: 6, // Adjust the vertical padding as needed
-    paddingHorizontal: 12, // Adjust the horizontal padding as needed
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginTop: 8,
+  },
+  expandCollapseButton: {
+    backgroundColor: 'blue',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
     borderRadius: 4,
     alignItems: 'center',
+    flex: 1,
+    marginRight: 8,
   },
-  deleteButtonText: {
+  deleteButton: {
+    backgroundColor: '#FF0000',
+    paddingVertical: 6,
+    paddingHorizontal: 12,
+    borderRadius: 4,
+    alignItems: 'center',
+    flex: 1,
+  },
+  buttonText: {
     color: '#FFFFFF',
     fontWeight: 'bold',
   },
