@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native';
-import {NewsContext} from '../../context/newsContext';
-import {refreshList} from '../../utils/newsExtractor';
+import {NewsContext} from '../../../context/newsContext';
+import {refreshList} from '../../../utils/newsExtractor';
 
 export const ListFooter = () => {
   const {

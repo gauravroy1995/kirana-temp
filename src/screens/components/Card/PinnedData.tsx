@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {ItemProps, PinnedCard} from './PinnedCard';
-import {NewsContext} from '../../context/newsContext';
+import {NewsContext} from '../../../context/newsContext';
 
 export const PinnedHeader = () => {
   const {pinnedNews = []} = useContext(NewsContext);

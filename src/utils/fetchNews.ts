@@ -1,5 +1,6 @@
-import {useContext, useEffect, useState} from 'react';
+import {useCallback, useContext, useEffect, useRef} from 'react';
 import {NewsContext} from '../context/newsContext';
+import {refreshList} from './newsExtractor';
 import {loadNewsState, saveNewsState} from './storage';
 
 const BASE_URL =
@@ -117,4 +118,28 @@ export const useAsyncUpdated = () => {
   }, [currNews, lastIndex, allNews, pinnedNews, deletedNews]);
 };
 
-export const updateAsyncStorage = () => {};
+/**
+ *
+ * @param interval to refresh the list automatically every 1 min
+ */
+export const useApiPolling = (interval = 1 * 60 * 1000) => {
+  const {setCurrNews, lastIndex, allNews, setlastIndex} =
+    useContext(NewsContext);
+
+  const fetchDataAndUpdate = useCallback(async () => {
+    const params = {
+      lastIndex,
+      allNews,
+      setlastIndex,
+      setCurrNews,
+    };
+    if (allNews?.length) {
+      refreshList(params);
+    }
+  }, [allNews, lastIndex]);
+
+  useEffect(() => {
+    const intervalId = setInterval(fetchDataAndUpdate, interval);
+    return () => clearInterval(intervalId);
+  }, [fetchDataAndUpdate, interval]);
+};

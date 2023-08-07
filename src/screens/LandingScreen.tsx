@@ -1,13 +1,18 @@
 import React, {useContext} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {useAsyncUpdated, useNews, useRefetchAgain} from '../utils/fetchNews';
-import {SwipableListItem} from './components/SwipeableList';
+import {
+  useApiPolling,
+  useAsyncUpdated,
+  useNews,
+  useRefetchAgain,
+} from '../utils/fetchNews';
+import {SwipableListItem} from './components/Card/SwipeableList';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {NewsContext, NewsProvider} from '../context/newsContext';
-import {PinnedHeader} from './components/PinnedData';
-import {ListFooter} from './components/Footer';
-import DataWrapper from './components/Wrapper';
-import {TrendingHeader} from './components/TrendingNews';
+import {PinnedHeader} from './components/Card/PinnedData';
+import {ListFooter} from './components/Footer/Footer';
+import DataWrapper from './components/Wrapper/Wrapper';
+import {TrendingHeader} from './components/Header/TrendingNews';
 
 export const LandingScreen = () => {
   const {
@@ -20,26 +25,31 @@ export const LandingScreen = () => {
   useNews(setCurrNews, setAllNews);
   useRefetchAgain();
   useAsyncUpdated();
+  useApiPolling();
 
   const renderList = ({item}) => {
     return <SwipableListItem item={item} />;
   };
 
   const renderHeader = () => {
-    return <PinnedHeader />;
+    return (
+      <>
+        <PinnedHeader />
+        <TrendingHeader />
+      </>
+    );
   };
 
   const renderFlat = () => {
     return (
       <View style={{flex: 1}}>
-        <PinnedHeader />
-        <TrendingHeader />
         <FlatList
           data={currNews}
           renderItem={renderList}
           keyExtractor={(item, index) => `${item?.content}${index}}`}
+          ListHeaderComponent={renderHeader()}
           ListFooterComponent={<ListFooter />}
-          style={{flex: 1}}
+          style={styles.main}
         />
       </View>
     );

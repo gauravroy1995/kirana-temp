@@ -1,7 +1,11 @@
 import React, {useContext} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {NewsContext} from '../../context/newsContext';
-import {deleteData, isPinned, pinnedNewsUtil} from '../../utils/newsExtractor';
+import {NewsContext} from '../../../context/newsContext';
+import {
+  deleteData,
+  isPinned,
+  pinnedNewsUtil,
+} from '../../../utils/newsExtractor';
 
 export const RightAction = ({item}) => {
   const {id} = item || {};
