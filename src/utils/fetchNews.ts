@@ -1,8 +1,7 @@
-import {useCallback, useContext, useEffect, useRef} from 'react';
+import {useCallback, useContext, useEffect} from 'react';
 import {NewsContext} from '../context/newsContext';
 import {refreshList} from './newsExtractor';
 import {loadNewsState, saveNewsState} from './storage';
-import {prefetchImages} from './imageUtil';
 
 const BASE_URL =
   'https://newsapi.org/v2/everything?' +

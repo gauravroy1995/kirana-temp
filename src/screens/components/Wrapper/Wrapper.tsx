@@ -3,16 +3,11 @@ import {ActivityIndicator, StyleSheet, View} from 'react-native';
 
 type DataWrapperProps = {
   loading: boolean;
-  error: string | null;
   onRetry: () => void;
   children: any;
 };
 
-const DataWrapper: React.FC<DataWrapperProps> = ({
-  loading,
-
-  children,
-}) => {
+const DataWrapper: React.FC<DataWrapperProps> = ({loading, children}) => {
   if (loading) {
     return (
       <View style={styles.loadingContainer}>

@@ -39,6 +39,7 @@ export const LandingScreen = () => {
       </>
     );
   };
+  const keyExtrac = (item, index) => `${item?.content}${index}}`;
 
   const renderFlat = () => {
     return (
@@ -46,7 +47,7 @@ export const LandingScreen = () => {
         <FlatList
           data={currNews}
           renderItem={renderList}
-          keyExtractor={(item, index) => `${item?.content}${index}}`}
+          keyExtractor={keyExtrac}
           ListHeaderComponent={renderHeader()}
           ListFooterComponent={<ListFooter />}
           style={styles.main}
