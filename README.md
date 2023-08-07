@@ -13,7 +13,7 @@ Short description of the project.
 7. Keeping the pinned news even when normal news is deleted since if user wants to check later
 8. Added expand func for pinned news
 9. Im calling again the same api when list is empty , in real scenario would have added next page num
-10. Added Image prefetch func
+
 
 ## Project Structure
 
